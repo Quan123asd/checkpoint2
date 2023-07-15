@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Bài 1</h1>
+    <h2>Món ăn hôm nay là</h2>
+    <p id="hello"></p>
+    <h2>Những món ăn mới nhất là:</h2>
+    <p id="news"></p>
+
+    <script>
+        let menu = ["Thịt", "Rau", "Gà"];
+        let hello = "";
+        let news = "";
+
+        let userInput = prompt("Hãy nhập các kí tự C, R, U, D");
+
+        if (userInput === "C") {
+            let monanC = prompt("Hãy nhập thêm món ăn vào trong menu");
+            menu.push(monanC);
+        } else if (userInput === "R") {
+            news = menu.join(",");
+        } else if (userInput === "U") {
+            let update = prompt("Hiện tại menu đang là [Thịt, Rau, Gà], bạn muốn thay đổi vị trí nào?");
+            if (menu.includes(update)) {
+                let upda = prompt("Bạn muốn đổi thành món ăn gì");
+                let index = menu.indexOf(update);
+                menu[index] = upda;
+            }
+        } else if (userInput === "D") {
+            let update2 = prompt("Hiện tại menu đang là [Thịt, Rau, Gà], bạn muốn xoá món ăn nào?");
+            if (menu.includes(update2)) {
+                let index2 = menu.indexOf(update2);
+                menu.splice(index2, 1);
+            }
+        }
+
+        for (let i = 0; i < menu.length; i++) {
+            hello += menu[i] + "<br>";
+        }
+
+        document.getElementById("hello").innerHTML = hello;
+        document.getElementById("news").innerHTML = news;
+    </script>
+
+</body>
+
+</html>

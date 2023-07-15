@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css" />
+</head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+    }
+
+
+    li {
+        list-style: none;
+    }
+
+    a {
+        color: inherit;
+    }
+
+    html {
+        scroll-behavior: smooth;
+    }
+
+    .wrapper {
+        width: 100%;
+        height: auto;
+        display: flex;
+        justify-content: center;
+        padding: 10px;
+        border: 1px solid black;
+        display: flex;
+    }
+
+    .wrapper .left,
+    .wrapper .right {
+        border: 1px solid red;
+    }
+
+    img {
+        width: 300px;
+        object-fit: cover;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+    }
+
+    p {
+        border: thin solid green;
+    }
+</style>
+
+<body>
+    <main class="wrapper">
+        <section class="left">
+            <figure>
+                <img src="https://images2.thanhnien.vn/Uploaded/trantam/2022_10_08/img-20221008-112850-6795.jpg"
+                    alt="" />
+            </figure>
+        </section>
+        <section class="right">
+            <form action="">
+                <label for=""><b>Please type "hanoi"</b></label>
+                <input type="text" name="" id="enter" placeholder="Enter text" />
+            </form>
+            <section>
+                <p id="state">Thành phố : </p>
+                <p id="city">Quận : </p>
+                <p id="temper">Nhiệt độ là </p>
+                <p id="human">Độ ẩm là : </p>
+                <p id="apsuat">Áp suất : </p>
+                <button onclick="check()">Submit</button>
+            </section>
+    </main>
+</body>
+<script>
+
+    async function logJSONData() {
+        const response = await fetch("https://api.airvisual.com/v2/nearest_city?key=df8f9c56-d099-4fe3-b43a-c5c70949e771");
+        const jsonData = await response.json();
+
+        const state = jsonData.data.state;
+        const temper = jsonData.data.current.weather.tp;
+        const city = jsonData.data.city;
+        const humidity = jsonData.data.current.weather.hu;
+        const apsuat = jsonData.data.current.weather.pr;
+
+        document.getElementById("state").innerHTML = "Thành phố : " + state;
+        document.getElementById("human").innerHTML = "Độ ẩm là : " + humidity;
+        document.getElementById("temper").innerHTML = "Nhiệt độ là : " + temper;
+        document.getElementById("city").innerHTML = "Quận : " + city;
+        document.getElementById("apsuat").innerHTML = "Áp suất : " + apsuat;
+
+    }
+    function check() {
+        let enter = document.getElementById("enter");
+        if (enter.value === "hanoi") {
+            logJSONData();
+
+        }
+    }
+</script>
+
+</html>
